@@ -1,4 +1,7 @@
-from bottle import route, run, request, template, static_file, get
+from bottle import route, run
+from bottle import request, template
+from bottle import static_file, get
+from bottle import error
 
 '''
 @route('/')
@@ -47,6 +50,10 @@ def acao_login():
 	username = request.forms.get('username')
 	password = request.forms.get('password')
 	return template('verificacao_login', sucesso=check_login(username, password), nome=username)
+
+@error(404)
+def error404(error):
+	return template('pagina404')
 
 if __name__ == '__main__':
 	run(host='localhost', port=8080, debug=True, reloader=True)
